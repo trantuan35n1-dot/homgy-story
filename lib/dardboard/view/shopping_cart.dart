@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mvvm/core/constain/app_color.dart';
 import 'package:mvvm/core/constain/app_size.dart';
-import 'package:mvvm/dardboard/view/product_card.dart';
 import 'package:mvvm/dardboard/viewmodel/dardboad_view_model.dart';
+import 'package:mvvm/dardboard/widget/cart_view.dart';
 import 'package:provider/provider.dart';
 
 class ShoppingCart extends StatelessWidget {
@@ -19,6 +19,7 @@ class ShoppingCart extends StatelessWidget {
             backgroundColor: AppColor.greyF6,
             leading: GestureDetector(
               onTap: () {
+                dardboadViewModel.changeScreent(0);
                 context.push('/');
               },
               child: Container(
@@ -94,13 +95,32 @@ class ShoppingCart extends StatelessWidget {
                   itemCount: dardboadViewModel.cart.length,
                   itemBuilder: (context, index) {
                     final cartShoping = dardboadViewModel.cart[index];
-                    return ProductCard(
-                      imageProduct: cartShoping.imageUrl,
-                      textProduct: cartShoping.name,
-                      price: cartShoping.price,
-                      originalPrice: cartShoping.originalPrice,
-                      quantitySold: cartShoping.quantitySold,
-                      ontap: () {},
+                    return CartView(
+                      colorBorder: cartShoping.buy != true
+                          ? AppColor.grey8
+                          : AppColor.amberL,
+                      onTapisbuy: () {
+                        dardboadViewModel.isBuy(index);
+                      },
+                      backColor: cartShoping.buy == true
+                          ? AppColor.amberL
+                          : AppColor.white,
+
+                      removeat: () {
+                        dardboadViewModel.removeCartShophing(index);
+                      },
+                      remove: () {
+                        dardboadViewModel.removeProductCart(index);
+                      },
+                      add: () {
+                        dardboadViewModel.increaseQuantity(index);
+                      },
+                      origanal: cartShoping.originalPrice,
+                      image: cartShoping.imageUrl,
+                      nameProduct: cartShoping.name,
+                      decriptionProduct: cartShoping.description,
+                      priceProduct: cartShoping.price,
+                      quantityProduct: cartShoping.quantity,
                     );
                   },
                 ),

@@ -9,6 +9,7 @@ class ProductCard extends StatelessWidget {
   final double originalPrice;
   final int quantitySold;
   final VoidCallback ontap;
+  final VoidCallback remove;
 
   const ProductCard({
     super.key,
@@ -18,6 +19,7 @@ class ProductCard extends StatelessWidget {
     required this.originalPrice,
     required this.quantitySold,
     required this.ontap,
+    required this.remove,
   });
 
   @override
@@ -40,7 +42,7 @@ class ProductCard extends StatelessWidget {
                 topLeft: Radius.circular(AppSize.md),
                 topRight: Radius.circular(AppSize.md),
               ),
-              child: Image.asset(
+              child: Image.network(
                 imageProduct,
                 fit: BoxFit.fill,
                 width: double.infinity,
@@ -95,6 +97,7 @@ class ProductCard extends StatelessWidget {
                   style: TextStyle(fontSize: 11, color: Color(0xff888888)),
                 ),
               ),
+              IconButton(onPressed: remove, icon: Icon(Icons.remove_circle)),
               GestureDetector(
                 onTap: ontap,
                 child: Container(

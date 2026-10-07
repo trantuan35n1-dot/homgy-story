@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mvvm/core/constain/app_color.dart';
 import 'package:mvvm/core/constain/app_size.dart';
 import 'package:mvvm/dardboard/viewmodel/dardboad_view_model.dart';
+import 'package:mvvm/dardboard/widget/dart_product.dart';
 import 'package:provider/provider.dart';
 
 class Screent3 extends StatelessWidget {
@@ -113,6 +114,7 @@ class Screent3 extends StatelessWidget {
                 ),
               ),
               SizedBox(height: AppSize.distance),
+              DartProduct(),
               /* Container(
                 padding: EdgeInsets.all(AppSize.distance),
                 width: double.infinity,

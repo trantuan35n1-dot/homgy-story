@@ -21,15 +21,20 @@ class DardboadFirst extends StatelessWidget {
           backgroundColor: Color(0xffF8FAFC),
           appBar: AppBar(
             backgroundColor: AppColor.white,
-            leading: Container(
-              margin: EdgeInsets.fromLTRB(16, 8, 0, 4),
-              height: AppSize.lg,
-              width: AppSize.sm,
-              decoration: BoxDecoration(
-                color: AppColor.amberM,
-                borderRadius: BorderRadius.circular(AppSize.xs),
+            leading: GestureDetector(
+              onTap: () {
+                dardboadViewModel.changeScreent(0);
+              },
+              child: Container(
+                margin: EdgeInsets.fromLTRB(16, 8, 0, 4),
+                height: AppSize.lg,
+                width: AppSize.sm,
+                decoration: BoxDecoration(
+                  color: AppColor.amberM,
+                  borderRadius: BorderRadius.circular(AppSize.xs),
+                ),
+                child: Icon(Icons.stacked_bar_chart),
               ),
-              child: Icon(Icons.stacked_bar_chart),
             ),
             title: Column(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -58,7 +63,7 @@ class DardboadFirst extends StatelessWidget {
                           borderRadius: BorderRadius.circular(AppSize.xs),
                         ),
                         child: Text(
-                          'STORY',
+                          'STORE',
                           style: TextStyle(
                             fontSize: AppSize.md,
                             color: AppColor.black,
@@ -91,53 +96,46 @@ class DardboadFirst extends StatelessWidget {
             shadowColor: Colors.amber,
           ),
           body: changeScreent(context, dardboadViewModel.selected),
-          bottomNavigationBar: SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(24, 0, 24, 0),
-              child: Container(
-                height: 64,
-                decoration: BoxDecoration(
-                  color: Color(0xff0F172A).withValues(alpha: 0.9),
-                  borderRadius: BorderRadius.circular(32),
-                  border: Border.all(
-                    color: Colors.white.withValues(alpha: 0.4),
+          bottomNavigationBar: dardboadViewModel.selected != 1
+              ? Container(
+                  padding: EdgeInsets.symmetric(vertical: AppSize.md),
+                  decoration: BoxDecoration(
+                    color: Color(0xff0F172A).withValues(alpha: 0.9),
                   ),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    IconButton(
-                      onPressed: () {
-                        dardboadViewModel.changeScreent(0);
-                      },
-                      icon: const Icon(Icons.home),
-                      color: Colors.white,
-                    ),
-                    IconButton(
-                      onPressed: () {
-                        dardboadViewModel.changeScreent(1);
-                      },
-                      icon: const Icon(Icons.add),
-                      color: Colors.white,
-                    ),
-                    IconButton(
-                      onPressed: () {
-                        dardboadViewModel.changeScreent(2);
-                      },
-                      icon: const Icon(Icons.list_rounded),
-                      color: Colors.white,
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      IconButton(
+                        onPressed: () {
+                          dardboadViewModel.changeScreent(0);
+                        },
+                        icon: const Icon(Icons.home),
+                        color: Colors.white,
+                      ),
+                      IconButton(
+                        onPressed: () {
+                          dardboadViewModel.changeScreent(1);
+                        },
+                        icon: const Icon(Icons.add),
+                        color: Colors.white,
+                      ),
+                      IconButton(
+                        onPressed: () {
+                          dardboadViewModel.changeScreent(2);
+                        },
+                        icon: const Icon(Icons.list_rounded),
+                        color: Colors.white,
+                      ),
+                    ],
+                  ),
+                )
+              : SizedBox(),
         );
       },
     );
   }
 
-  Widget changeScreent(context, int selected) {
+  Widget changeScreent(BuildContext context, int selected) {
     switch (selected) {
       case 0:
         return HomeHomegyStore();
