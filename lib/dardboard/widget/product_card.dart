@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mvvm/core/constain/app_color.dart';
 import 'package:mvvm/core/constain/app_size.dart';
+import 'package:mvvm/core/extension/dola_model.dart';
 
 class ProductCard extends StatelessWidget {
   final String imageProduct;
@@ -65,7 +66,7 @@ class ProductCard extends StatelessWidget {
                 Wrap(
                   children: [
                     Text(
-                      '${price.toStringAsFixed(3)} đ',
+                      '${DolaModel.formatCurrency(price)} đ',
                       style: TextStyle(
                         fontSize: 16,
                         color: AppColor.red,
@@ -75,7 +76,7 @@ class ProductCard extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(left: 8.0),
                       child: Text(
-                        ' ${originalPrice.toStringAsFixed(3)}',
+                        ' ${DolaModel.formatCurrency(originalPrice)}',
                         style: TextStyle(
                           decoration: TextDecoration.lineThrough,
                           fontSize: 11,
@@ -89,6 +90,7 @@ class ProductCard extends StatelessWidget {
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Padding(
                 padding: const EdgeInsets.only(left: 8.0, bottom: 4),

@@ -3,6 +3,8 @@ import 'package:mvvm/core/constain/app_color.dart';
 import 'package:mvvm/core/constain/app_size.dart';
 import 'package:mvvm/dardboard/model/cartltem_model.dart';
 import 'package:mvvm/dardboard/model/smart_products.dart';
+import 'package:mvvm/dardboard/widget/dart_product.dart';
+import 'package:mvvm/dardboard/widget/detail_product.dart';
 import 'package:mvvm/dardboard/widget/product_card.dart';
 import 'package:mvvm/dardboard/viewmodel/dardboad_view_model.dart';
 import 'package:provider/provider.dart';
@@ -295,7 +297,9 @@ class HomeHomegyStore extends StatelessWidget {
                     : GridView.builder(
                         shrinkWrap: true,
                         physics: NeverScrollableScrollPhysics(),
-                        itemCount: dardboadViewModel.filteredProducts.length,
+                        itemCount: dardboadViewModel.filteredProducts.length > 4
+                            ? 4
+                            : dardboadViewModel.filteredProducts.length,
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           mainAxisSpacing: 8,
                           crossAxisSpacing: 4,
@@ -305,35 +309,54 @@ class HomeHomegyStore extends StatelessWidget {
                         itemBuilder: (context, index) {
                           final dardBoardbuil =
                               dardboadViewModel.filteredProducts[index];
-                          return ProductCard(
-                            remove: () {
-                              dardboadViewModel.deleteProduct(index);
-                            },
-                            ontap: () {
-                              dardboadViewModel.addCartShopping(
-                                CartltemModel(
-                                  name: dardBoardbuil.name,
-                                  imageUrl: dardBoardbuil.imageUrl,
-                                  description: dardBoardbuil.description,
-                                  details: dardBoardbuil.details,
-                                  price: dardBoardbuil.price,
-                                  originalPrice: dardBoardbuil.originalPrice,
-                                  quantitySold: dardBoardbuil.quantitySold,
-                                  smartProduct: dardBoardbuil.smartProduct,
-                                  stockQuantity: dardBoardbuil.stockQuantity,
-                                ),
+                          return GestureDetector(
+                            onTap: () {
+                              showModalBottomSheet(
+                                isScrollControlled: true,
+                                context: context,
+                                builder: (context) {
+                                  return DetailProduct(
+                                    src: dardBoardbuil.imageUrl,
+                                    textProduct: dardBoardbuil.name,
+                                    price: dardBoardbuil.price,
+                                    originalPrice: dardBoardbuil.originalPrice,
+                                    quantitySold: dardBoardbuil.quantitySold,
+                                    remove: () {},
+                                    ontap: () {},
+                                  );
+                                },
                               );
-                              dardboadViewModel.sortByPrice();
                             },
-                            imageProduct: dardBoardbuil.imageUrl,
-                            textProduct: dardBoardbuil.name,
-                            price: dardBoardbuil.price,
-                            originalPrice: dardBoardbuil.originalPrice,
-                            quantitySold: dardBoardbuil.quantitySold,
+                            child: ProductCard(
+                              remove: () {
+                                dardboadViewModel.deleteProduct(index);
+                              },
+                              ontap: () {
+                                dardboadViewModel.addCartShopping(
+                                  CartltemModel(
+                                    name: dardBoardbuil.name,
+                                    imageUrl: dardBoardbuil.imageUrl,
+                                    description: dardBoardbuil.description,
+                                    details: dardBoardbuil.details,
+                                    price: dardBoardbuil.price,
+                                    originalPrice: dardBoardbuil.originalPrice,
+                                    quantitySold: dardBoardbuil.quantitySold,
+                                    smartProduct: dardBoardbuil.smartProduct,
+                                    stockQuantity: dardBoardbuil.stockQuantity,
+                                  ),
+                                );
+                              },
+                              imageProduct: dardBoardbuil.imageUrl,
+                              textProduct: dardBoardbuil.name,
+                              price: dardBoardbuil.price,
+                              originalPrice: dardBoardbuil.originalPrice,
+                              quantitySold: dardBoardbuil.quantitySold,
+                            ),
                           );
                         },
                       ),
               ),
+              DartProduct(),
             ],
           ),
         );

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mvvm/core/constain/app_color.dart';
 import 'package:mvvm/core/constain/app_size.dart';
+import 'package:mvvm/core/extension/dola_model.dart';
 import 'package:mvvm/dardboard/viewmodel/dardboad_view_model.dart';
 import 'package:mvvm/dardboard/widget/cart_view.dart';
 import 'package:provider/provider.dart';
@@ -16,11 +17,12 @@ class ShoppingCart extends StatelessWidget {
         return Scaffold(
           backgroundColor: AppColor.white,
           appBar: AppBar(
+            surfaceTintColor: Colors.transparent,
             backgroundColor: AppColor.greyF6,
             leading: GestureDetector(
               onTap: () {
                 dardboadViewModel.changeScreent(0);
-                context.push('/');
+                context.push('/dartboadfirst');
               },
               child: Container(
                 margin: EdgeInsets.symmetric(
@@ -124,20 +126,19 @@ class ShoppingCart extends StatelessWidget {
                     );
                   },
                 ),
-          bottomNavigationBar: SafeArea(
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: AppSize.distance),
-              height: 160,
-              color: AppColor.greyF6,
-              child: Column(
-                children: [
-                  SizedBox(height: AppSize.distance),
+          bottomNavigationBar: Container(
+            padding: const EdgeInsets.symmetric(horizontal: AppSize.distance),
+            height: 130,
+            color: AppColor.greyF6,
+            child: Column(
+              children: [
+                /*SizedBox(height: AppSize.distance),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text('Tạm tính niêm yết : '),
                       Text(
-                        '${dardboadViewModel.totalPrice.toStringAsFixed(3)} đ',
+                        '${DolaModel.formatCurrency(dardboadViewModel.totalPrice)} đ',
                       ),
                     ],
                   ),
@@ -151,31 +152,35 @@ class ShoppingCart extends StatelessWidget {
                       ),
                     ],
                   ),
-                  SizedBox(height: AppSize.m),
-                  Divider(height: 1, color: AppColor.greyE8),
-                  SizedBox(height: AppSize.m),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Tổng thanh toán : ',
-                        style: TextStyle(
-                          fontSize: AppSize.x,
-                          fontWeight: FontWeight.w600,
-                        ),
+                SizedBox(height: AppSize.m),*/
+                Divider(height: 1, color: AppColor.greyE8),
+                SizedBox(height: AppSize.m),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Tổng thanh toán : ',
+                      style: TextStyle(
+                        fontSize: AppSize.x,
+                        fontWeight: FontWeight.w600,
                       ),
-                      Text(
-                        '${dardboadViewModel.totalPrice.toStringAsFixed(3)} đ',
-                        style: TextStyle(
-                          fontSize: AppSize.x,
-                          fontWeight: FontWeight.w600,
-                          color: AppColor.amberL,
-                        ),
+                    ),
+                    Text(
+                      '${DolaModel.formatCurrency(dardboadViewModel.totalPrice)} đ',
+                      style: TextStyle(
+                        fontSize: AppSize.x,
+                        fontWeight: FontWeight.w600,
+                        color: AppColor.amberL,
                       ),
-                    ],
-                  ),
-                  SizedBox(height: AppSize.m),
-                  Container(
+                    ),
+                  ],
+                ),
+                SizedBox(height: AppSize.m),
+                GestureDetector(
+                  onTap: () {
+                    context.push('/payment');
+                  },
+                  child: Container(
                     padding: EdgeInsets.symmetric(vertical: AppSize.m),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(AppSize.md),
@@ -195,8 +200,8 @@ class ShoppingCart extends StatelessWidget {
                       ],
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         );

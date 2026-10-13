@@ -7,6 +7,8 @@ import 'package:mvvm/dardboard/view/add_products.dart';
 import 'package:mvvm/dardboard/view/custum_cart.dart';
 import 'package:mvvm/dardboard/view/home_homegy_store.dart';
 import 'package:mvvm/dardboard/viewmodel/dardboad_view_model.dart';
+import 'package:mvvm/dardboard/widget/provider_typder.dart';
+import 'package:mvvm/login/model/type_role.dart';
 import 'package:provider/provider.dart';
 
 class DardboadFirst extends StatelessWidget {
@@ -20,6 +22,7 @@ class DardboadFirst extends StatelessWidget {
           extendBody: true,
           backgroundColor: Color(0xffF8FAFC),
           appBar: AppBar(
+            surfaceTintColor: Colors.transparent,
             backgroundColor: AppColor.white,
             leading: GestureDetector(
               onTap: () {
@@ -95,7 +98,9 @@ class DardboadFirst extends StatelessWidget {
 
             shadowColor: Colors.amber,
           ),
-          body: changeScreent(context, dardboadViewModel.selected),
+          body: Stack(
+            children: [changeScreent(context, dardboadViewModel.selected)],
+          ),
           bottomNavigationBar: dardboadViewModel.selected != 1
               ? Container(
                   padding: EdgeInsets.symmetric(vertical: AppSize.md),
@@ -112,13 +117,15 @@ class DardboadFirst extends StatelessWidget {
                         icon: const Icon(Icons.home),
                         color: Colors.white,
                       ),
-                      IconButton(
-                        onPressed: () {
-                          dardboadViewModel.changeScreent(1);
-                        },
-                        icon: const Icon(Icons.add),
-                        color: Colors.white,
-                      ),
+                      if (dardboadViewModel.currentUser?.typeRole ==
+                          TypeRole.admin)
+                        IconButton(
+                          onPressed: () {
+                            dardboadViewModel.changeScreent(1);
+                          },
+                          icon: const Icon(Icons.add),
+                          color: Colors.white,
+                        ),
                       IconButton(
                         onPressed: () {
                           dardboadViewModel.changeScreent(2);

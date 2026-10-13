@@ -9,14 +9,17 @@ class DartProduct extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double model = MediaQuery.of(context).size.height;
-    double modelS = MediaQuery.of(context).size.width;
     return Consumer<DardboadViewModel>(
       builder: (context, dardboadViewModel, child) {
         return SizedBox(
           height: model * 0.4,
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Công tắc Homegy ${model} ${modelS}'),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text('Công tắc Homegy '),
+              ),
               SizedBox(
                 height: model * 0.3,
                 child: ListView.builder(
@@ -24,16 +27,19 @@ class DartProduct extends StatelessWidget {
                   itemCount: dardboadViewModel.fill.length,
                   itemBuilder: (context, index) {
                     final product = dardboadViewModel.fill[index];
-                    return SizedBox(
-                      width: 200,
-                      child: ProductCard(
-                        imageProduct: product.imageUrl,
-                        textProduct: product.name,
-                        price: product.price,
-                        originalPrice: product.originalPrice,
-                        quantitySold: product.quantitySold,
-                        ontap: () {},
-                        remove: () {},
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: SizedBox(
+                        width: 200,
+                        child: ProductCard(
+                          imageProduct: product.imageUrl,
+                          textProduct: product.name,
+                          price: product.price,
+                          originalPrice: product.originalPrice,
+                          quantitySold: product.quantitySold,
+                          ontap: () {},
+                          remove: () {},
+                        ),
                       ),
                     );
                   },

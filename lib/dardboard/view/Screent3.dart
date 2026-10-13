@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mvvm/core/constain/app_color.dart';
 import 'package:mvvm/core/constain/app_size.dart';
 import 'package:mvvm/dardboard/viewmodel/dardboad_view_model.dart';
-import 'package:mvvm/dardboard/widget/dart_product.dart';
 import 'package:provider/provider.dart';
 
 class Screent3 extends StatelessWidget {
@@ -82,39 +82,51 @@ class Screent3 extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: AppSize.m),
-                    Container(
-                      padding: EdgeInsets.symmetric(vertical: AppSize.m),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(AppSize.m),
-                        color: AppColor.black,
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(right: AppSize.xs),
-                            child: Icon(
-                              Icons.search,
-                              color: AppColor.white,
-                              size: AppSize.md,
+                    GestureDetector(
+                      onTap: () {
+                        dardboadViewModel.changeproductTyper();
+                      },
+                      child: Container(
+                        padding: EdgeInsets.symmetric(vertical: AppSize.m),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(AppSize.m),
+                          color: AppColor.black,
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(right: AppSize.xs),
+                              child: Icon(
+                                Icons.search,
+                                color: AppColor.white,
+                                size: AppSize.md,
+                              ),
                             ),
-                          ),
-                          Text(
-                            'Search ',
-                            style: TextStyle(
-                              color: AppColor.white,
-                              fontSize: AppSize.md,
-                              fontWeight: FontWeight.w700,
+                            Text(
+                              'Search ',
+                              style: TextStyle(
+                                color: AppColor.white,
+                                fontSize: AppSize.md,
+                                fontWeight: FontWeight.w700,
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ],
                 ),
               ),
               SizedBox(height: AppSize.distance),
-              DartProduct(),
+
+              TextButton(
+                onPressed: () {
+                  context.push('/');
+                },
+                child: Text('Đăng xuất '),
+              ),
+
               /* Container(
                 padding: EdgeInsets.all(AppSize.distance),
                 width: double.infinity,

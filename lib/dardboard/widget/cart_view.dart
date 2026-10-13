@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mvvm/core/constain/app_color.dart';
 import 'package:mvvm/core/constain/app_size.dart';
+import 'package:mvvm/core/extension/dola_model.dart';
 
 class CartView extends StatelessWidget {
   final String image;
@@ -98,7 +99,7 @@ class CartView extends StatelessWidget {
                   ),
 
                   Text(
-                    '${priceProduct.toStringAsFixed(3)}',
+                    '${DolaModel.formatCurrency(priceProduct)}',
                     style: TextStyle(
                       color: AppColor.red,
                       fontSize: AppSize.lg,
@@ -109,7 +110,7 @@ class CartView extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        origanal.toStringAsFixed(3),
+                        DolaModel.formatCurrency(origanal),
                         style: TextStyle(
                           decoration: TextDecoration.lineThrough,
                           fontSize: AppSize.md,
